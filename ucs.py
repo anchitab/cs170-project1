@@ -26,7 +26,10 @@ right_corner_zero = [[1, 2, 0], [4, 5, 3], [7, 8, 6]]
 
 # Examples from project slides 
 trivial = [[1, 2, 3], [4, 5, 6], [7, 8, 0]] 
+veryEasy = [[1, 2, 3], [4, 5, 6], [7, 0, 8]] 
 easy = [[1, 2, 0], [4, 5, 3], [7, 8, 6]] 
+doable = [[0, 1, 2], [4, 5, 3], [7, 8, 6]] 
+oh_boy = [[8, 7, 1], [6, 0, 2], [5, 4, 3]] 
 
 
-print(ucs(easy))
+print(ucs(oh_boy))
