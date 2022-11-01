@@ -3,10 +3,10 @@ from helpers import *
 from node import Node
 import time
 
-def ucs(board, heuristic=None):
+def ucs(board, heuristic=None, timing=False):
     nodes_expanded = 0
     queue = deque()
-    start_node = Node(board)
+    start_node = Node(board, 0, 0)
     queue.append((start_node, 0))
     max_size = 1
 
@@ -19,16 +19,18 @@ def ucs(board, heuristic=None):
         nodes_expanded += 1
 
         if is_goal_state(node.board):
-            node.printPath()
-            print(f'Solution depth: {depth}')
-            print(f'Nodes expanded: {nodes_expanded}')
-            print(f'Max queue size: {max_size}')
+            if not timing:
+                node.printPath()
+                print('Goal state!')
+                print(f'Solution depth: {depth}')
+                print(f'Nodes expanded: {nodes_expanded}')
+                print(f'Max queue size: {max_size}')
             return (node.board, depth)
         
         for new_board in get_all_moves(node.board):
             node_tuple = board_to_tuple(new_board)
             if node_tuple not in seen:
-                new_node = Node(new_board, prev=node)
+                new_node = Node(new_board, depth + 1, depth + 1, prev=node)
                 queue.append((new_node, depth + 1))
                 seen.add(node_tuple)
 
