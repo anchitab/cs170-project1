@@ -2,7 +2,7 @@ from collections import deque
 from helpers import *
 from node import Node
 import heapq
-import time
+#import time
 
 def zero_heuristic(board): 
     return 0
@@ -97,9 +97,9 @@ depth_24_test = [
     [3, 5, 8]
 ]
 
-for heuristic in [zero_heuristic, misplaced_heuristic, manhattan_heuristic]:
-    start = time.time()
-    a_star(depth_24_test, heuristic)
-    end = time.time()
+# for heuristic in [zero_heuristic, misplaced_heuristic, manhattan_heuristic]:
+#     start = time.time()
+#     a_star(depth_24_test, heuristic)
+#     #end = time.time()
 
-    print(f'ELAPSED TIME: {end-start}')
+#     print(f'ELAPSED TIME: {end-start}')
