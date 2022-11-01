@@ -1,5 +1,4 @@
 from collections import deque
-import re
 from helpers import *
 from node import Node
 
@@ -8,6 +7,8 @@ def ucs(board):
     start_node = Node(board)
     queue.append((start_node, 0))
     max_size = 1
+
+    seen = set()
 
     while True:
         if not queue:
@@ -19,8 +20,12 @@ def ucs(board):
             return (node.board, depth)
 
         for new_board, cost in get_all_moves(node.board):
-            new_node = Node(new_board, prev=node)
-            queue.append((new_node, depth + cost))
+            node_tuple = board_to_tuple(new_board)
+
+            if node_tuple not in seen:
+                new_node = Node(new_board, prev=node)
+                queue.append((new_node, depth + cost))
+                seen.add(node_tuple)
 
 right_corner_zero = [[1, 2, 0], [4, 5, 3], [7, 8, 6]]
 

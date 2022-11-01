@@ -52,4 +52,9 @@ def print_puzzle(puzzle):
     print('\n')
 
 
-
+#Board = tuples
+def board_to_tuple(board):
+    new_board = []
+    for row in board:
+        new_board.append(tuple(row))
+    return tuple(new_board)
