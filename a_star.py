@@ -17,6 +17,20 @@ def misplaced_heuristic(board):
             curr += 1
     return total_misplaced
 
+def manhattan_heuristic(board):
+    total_dist = 0
+    curr = 1
+
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] != 0 and board[i][j] != curr:
+                correct_x, correct_y = (board[i][j] - 1) // 3, (board[i][j] - 1) % 3 
+                curr_dist = abs(correct_x - i) + abs(correct_y  - j)
+                total_dist += curr_dist
+    
+            curr += 1
+    return total_dist
+
 def in_queue(new_board, queue):
     for i in range(len(queue)):
         _, _, node = queue[i]
@@ -82,5 +96,5 @@ depth_24_test = [
     [3, 5, 8]
 ]
 
-for heuristic in [zero_heuristic, misplaced_heuristic]:
+for heuristic in [zero_heuristic, misplaced_heuristic, manhattan_heuristic]:
     a_star(depth_24_test, heuristic)
