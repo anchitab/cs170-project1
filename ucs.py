@@ -26,6 +26,7 @@ right_corner_zero = [[1, 2, 0], [4, 5, 3], [7, 8, 6]]
 
 # Examples from project slides 
 trivial = [[1, 2, 3], [4, 5, 6], [7, 8, 0]] 
+easy = [[1, 2, 0], [4, 5, 3], [7, 8, 6]] 
 
 
 print(ucs(easy))

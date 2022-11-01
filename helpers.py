@@ -20,6 +20,25 @@ def get_all_moves(board):
         new_board[row][col-1], new_board[row][col] = board[row][col], board[row][col-1]
         moves.append((new_board, 1))
 
+    #Right
+    if col != (len(board[0]) - 1):
+        new_board = deepcopy(board)
+        new_board[row][col+1], new_board[row][col] = board[row][col], board[row][col+1]
+        moves.append((new_board, 1))
+    
+    # Up
+    if row != 0:
+        new_board = deepcopy(board)
+        new_board[row-1][col], new_board[row][col] = new_board[row][col], new_board[row-1][col]
+        moves.append((new_board, 1))
+    
+    # Down
+    if row != (len(board) - 1):
+        new_board = deepcopy(board)
+        new_board[row+1][col], new_board[row][col] = new_board[row][col], new_board[row+1][col]
+        moves.append((new_board, 1))
+
+
     return moves
 
 def is_goal_state(board):
