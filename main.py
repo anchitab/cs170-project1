@@ -23,8 +23,11 @@ def run_algorithm(puzzle):
 
 def get_puzzle(mode):
     if mode == '1':
-        difficulty = input('Enter difficulty (on a scale of 1-5) for your example puzzle: ')
+        difficulty = input('Enter difficulty (on a scale of 0-7) for your example puzzle: ')
         difficulty = int(difficulty.strip())
+        if difficulty == 0:
+            print('Depth 0 puzzle selected')
+            return depth_0_test
         if difficulty == 1:
             print('Depth 2 puzzle selected')
             return depth_2_test
@@ -38,6 +41,12 @@ def get_puzzle(mode):
             print('Depth 12 puzzle selected')
             return depth_12_test
         elif difficulty == 5:
+            print('Depth 16 puzzle selected')
+            return depth_16_test
+        elif difficulty == 6:
+            print('Depth 20 puzzle selected')
+            return depth_20_test
+        elif difficulty == 7:
             print('Depth 24 puzzle selected')
             return depth_24_test
         else:
@@ -59,7 +68,11 @@ def get_puzzle(mode):
 
 
 
-
+depth_0_test = [
+    [1, 2, 3],
+    [4, 5, 6], 
+    [7, 8, 0]
+]
 depth_2_test = [
     [1, 2, 3],
     [4, 5, 6], 
@@ -82,6 +95,19 @@ depth_12_test = [
     [5, 0, 7],
     [4, 8, 2]
 ]
+
+depth_16_test = [
+    [1, 6, 7],
+    [5, 0, 3],
+    [4, 8, 2]
+]
+
+depth_20_test = [
+    [7, 1, 2],
+    [4, 8, 5],
+    [6, 3, 0]
+]
+
 depth_24_test = [
     [0, 7, 2],
     [4, 6, 1],
