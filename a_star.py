@@ -2,10 +2,7 @@ from collections import deque
 from helpers import *
 from node import Node
 import heapq
-#import time
-
-def zero_heuristic(board): 
-    return 0
+import time
 
 def misplaced_heuristic(board):
     total_misplaced = 0
@@ -32,6 +29,9 @@ def manhattan_heuristic(board):
             curr += 1
     return total_dist
 
+def zero_heuristic(board): 
+    return 0
+
 def in_queue(new_board, queue):
     for i in range(len(queue)):
         _, _, node = queue[i]
@@ -39,12 +39,13 @@ def in_queue(new_board, queue):
             return i
     return None
 
-def a_star(board, heuristic):
+def a_star(board, heuristic, timing=False):
     nodes_expanded = 0
     queue = []
-    start_node = Node(board)
+    start_fx = heuristic(board)
+    start_node = Node(board, start_fx, 0)
     seen = {board_to_tuple(board)}
-    heapq.heappush(queue, (heuristic(board), 0, start_node))
+    heapq.heappush(queue, (start_fx, 0, start_node))
     max_size = 1
 
     while True:
@@ -55,11 +56,12 @@ def a_star(board, heuristic):
         # Get node with min f(x) = g(x) + h(x)
         f_x, g_x, node = heapq.heappop(queue)
         if is_goal_state(node.board):
-            print('Solution path (from end to beginning): ')
-            node.printPath()
-            print(f'Solution depth: {g_x}')
-            print(f'Nodes expanded: {nodes_expanded}')
-            print(f'Max queue size: {max_size}')
+            if not timing:
+                node.printPath()
+                print('Goal state!')
+                print(f'Solution depth: {g_x}')
+                print(f'Nodes expanded: {nodes_expanded}')
+                print(f'Max queue size: {max_size}')
             return (node.board, g_x)
         
         # Mark node as visited
@@ -69,16 +71,13 @@ def a_star(board, heuristic):
         for new_board in get_all_moves(node.board):
             new_board_tuple = board_to_tuple(new_board)
             cost = heuristic(new_board)
+            new_fx = g_x + cost + 1
             
             # Add new nodes into queue
             if new_board_tuple not in seen:
-                new_node = Node(new_board, prev=node)
-                queue.append((cost + g_x + 1, g_x + 1, new_node))
+                new_node = Node(new_board, new_fx, g_x + 1, prev=node)
+                queue.append((new_fx, g_x + 1, new_node))
                 seen.add(new_board_tuple)
-                
-
-oh_boy = [[8, 7, 1],
-[6, 0, 2], [5, 4, 3]]
 
 depth_4_test = [
     [1, 2, 3],
@@ -98,8 +97,8 @@ depth_24_test = [
 ]
 
 # for heuristic in [zero_heuristic, misplaced_heuristic, manhattan_heuristic]:
-#     start = time.time()
-#     a_star(depth_24_test, heuristic)
-#     #end = time.time()
+    # start = time.time()
+    # a_star(depth_24_test, heuristic)
+    # end = time.time()
 
 #     print(f'ELAPSED TIME: {end-start}')
