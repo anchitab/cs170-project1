@@ -6,6 +6,17 @@ import heapq
 def zero_heuristic(board): 
     return 0
 
+def misplaced_heuristic(board):
+    total_misplaced = 0
+    curr = 1
+
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] != 0 and board[i][j] != curr:
+                total_misplaced += 1
+            curr += 1
+    return total_misplaced
+
 def in_queue(new_board, queue):
     for i in range(len(queue)):
         _, _, node = queue[i]
@@ -71,5 +82,5 @@ depth_24_test = [
     [3, 5, 8]
 ]
 
-for heuristic in [zero_heuristic]:
+for heuristic in [zero_heuristic, misplaced_heuristic]:
     a_star(depth_24_test, heuristic)
